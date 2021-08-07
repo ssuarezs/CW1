@@ -1,45 +1,40 @@
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, FlatList } from 'react-native';
-import { AbsButton, ItemSes } from '../components'
-import { connect } from 'react-redux'
+import { AbsButton, DelButton, AddListButton, ItemExe } from '../components'
 import { Entypo } from '@expo/vector-icons';
+import { connect } from 'react-redux'
 import { fetchSes, deleteSes } from '../reducers/sesiones'
 
 const {width, height} = Dimensions.get('screen');
 
-const Main = ({navigation, lista, fetchSes}) => {
+const AddSession = ({navigation, lista, fetchSes}) => {
+
+    const data = navigation.getParam('item')
+    console.log(data)
 
    return <View style={styles.container}>
-       <View style={styles.header}>
-            <Entypo name="chevron-left" size={35} color="white" />
-            <Text >PRINCIPAL</Text>
-            <Entypo name="chevron-left" size={35} color="white" />
-       </View>
-       <View style={{alignSelf: 'stretch'}}>
-       {lista.data ?
-            <View style={styles.containList}>
+        <View style={styles.header}>
+            <TouchableOpacity onPress={()=> navigation.goBack()} >
+                <Entypo name="chevron-left" size={35} color="#555" />
+            </TouchableOpacity>
+            <Text >{data.name}</Text>
+            <TouchableOpacity  >
+                <Entypo name="cup" size={30} color="#555" />
+            </TouchableOpacity>
+        </View>
+        <View style={{alignSelf: 'stretch'}}>
+            <View>
               <FlatList
                 style={styles.list}
-                data={lista.data}
+                data={data.exerc}
                 showsVerticalScrollIndicator={false}
-                keyExtractor={x => x.name}
-               renderItem={({item}) =>
-                    <ItemSes
-                        item={item}
-                        onPress={()=> navigation.navigate('LookSe', {item: item})}
-                    />
-               }
+                keyExtractor={x => x.id}
+                renderItem={({item}) =>
+                    <ItemExe item={item} DelO={false} />
+                }
               />
             </View>
-          :
-        <Text style={sty.subtitle}>
-          Aun no has guardado ningun punto
-        </Text>
-        }
-       </View>
-        <AbsButton color={'#ccc'} onPress={()=> navigation.navigate('AddSe')}>
-            <Entypo name="plus" size={50} color="white" />
-        </AbsButton>
+        </View>
     </View>
 }
 
@@ -52,11 +47,12 @@ const mapDispatchToProps = dispatch => ({
     deleteSes: (itemKey) => dispatch(deleteSes(itemKey)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main)
+export default connect(mapStateToProps, mapDispatchToProps)(AddSession)
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignSelf: 'stretch',
         alignItems: 'center',
         justifyContent: 'flex-start',
         backgroundColor: 'white',
