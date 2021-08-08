@@ -34,25 +34,7 @@ const submit = mac(SUBMIT, 'payload')
 const deleteElement = mac(DELETE_ELEMENT, 'payload')
 
 const initialState = {
-    data: [
-        {
-            "exerc": [
-                {
-                    "name" : "pushup",
-                    "sets" : 3,
-                    "reps" : 10,
-                    "meas" : "reps",
-                },
-            ],
-            "level" : "medium",
-            "feel" : "good",
-            "time" : 30,
-            "vol" : 30,
-            "date" : "7-8-2021",
-            "name": "Sesion 1",
-            "key" : "1"
-        },
-    ],
+    data: [],
     fetched: false,
     fetching: false,
 }
@@ -107,7 +89,20 @@ export const deleteSes = itemKey =>
         dispatch(deleteElement(itemKey))
         const state = getState()
         try {
-            const data = JSON.stringify(state.listaL.data);
+            const data = JSON.stringify(state.sesiones.data);
+            await AsyncStorage.setItem('Sessions', data)
+        } catch(e) {
+            dispatch(errorFetch(e))
+        }
+    }
+
+
+export const saveSes = session =>
+    async (dispatch, getState) => {
+        dispatch(submit(session))
+        const state = getState()
+        try {
+            const data = JSON.stringify(state.sesiones.data);
             await AsyncStorage.setItem('Sessions', data)
         } catch(e) {
             dispatch(errorFetch(e))

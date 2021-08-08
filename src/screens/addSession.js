@@ -2,25 +2,40 @@ import React from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { AbsButton, DelButton, AddListButton, ItemExe, Modal } from '../components'
 import AddExe from './addExe'
+import DetSes from './detailSes'
 import { Entypo } from '@expo/vector-icons';
 import { connect } from 'react-redux'
-import { fetchSes, deleteSes } from '../reducers/sesiones'
+import { fetchSes, deleteSes, saveSes } from '../reducers/sesiones'
 
 const {width, height} = Dimensions.get('screen');
 
-const AddSession = ({navigation, lista, fetchSes}) => {
+const AddSession = ({navigation, lista, fetchSes, saveSes}) => {
 
     const [sets, setSets] = React.useState(0)
     const [reps, setReps] = React.useState(0)
     const [meas, setMeas] = React.useState('REPS')
     const [name, setName] = React.useState('PushUps')
-    const [mVisib, setMVisib] = React.useState(false)
-    const [listaExer, setListE] = React.useState([])
+
 
     const hanSets = numb => setSets(numb)
     const hanReps = numb => setReps(numb)
     const hanMeas = text => setMeas(text)
     const hanName = text => setName(text)
+
+    const [time, setTime] = React.useState(15)
+    const [level, setLevel] = React.useState('')
+    const [feel, setFeel] = React.useState('')
+    const [sesName, setSesName] = React.useState('Sesion A')
+
+    const hanTime = numb => setTime(numb)
+    const hanLevel = text => setLevel(text)
+    const hanFeel = text => setFeel(text)
+    const hanSesName = text => setSesName(text)
+
+    const [mVisib, setMVisib] = React.useState(false)
+    const [m2Visib, setM2Visib] = React.useState(false)
+
+    const [listaExer, setListE] = React.useState([])
 
     const closeModal = () => {
         setSets(0)
@@ -28,6 +43,10 @@ const AddSession = ({navigation, lista, fetchSes}) => {
         setMeas('REPS')
         setName('PushUps')
         setMVisib(false)
+    }
+
+    const closeModal2 = () => {
+        setM2Visib(false)
     }
 
     const newElement = () => {
@@ -53,7 +72,50 @@ const AddSession = ({navigation, lista, fetchSes}) => {
         setListE(lala)
     }
 
+    const getDate = () => {
+        const day = new Date().getDate()
+        const month = new Date().getMonth()
+        const year = new Date().getFullYear()
+        const date = `${day}-${month}-${year}`
+        return date
+    }
+
+    const getVol = () => {
+        let volume = 0
+        listaExer.forEach((t) => {
+            volume = volume + t.sets*t.reps
+        })
+        return volume
+    }
+
+  const submitSession = async () => {
+    if(feel && level && name){
+        const newPunt = {
+          exerc: listaExer,
+          feel: feel,
+          level: level,
+          vol: getVol(),
+          time: time,
+          date: getDate(),
+          name: sesName,
+          key: Math.random().toString(36)
+        }
+        saveSes(newPunt)
+        navigation.navigate('Main')
+    }else{ Alert.alert('Debes completar las opciones') }
+  }
+
    return <View style={styles.container}>
+        <Modal visibility={m2Visib}>
+            <DetSes
+                hLevel={hanLevel}
+                hFeel={hanFeel}
+                hTime={hanTime}
+                hSesN={hanSesName}
+                close={()=>closeModal2()}
+                acept={()=>submitSession()}
+            />
+        </Modal>
         <Modal visibility={mVisib}>
             <AddExe
                 hSets={hanSets}
@@ -72,7 +134,7 @@ const AddSession = ({navigation, lista, fetchSes}) => {
             <Entypo name="chevron-left" size={35} color="white" />
         </View>
         <View style={styles.line}>
-            <Text>Agrega en ejercicio con {':  '}</Text>
+            <Text>Agrega un ejercicio con {':  '}</Text>
             <Entypo name="add-to-list" size={30} color="#555" />
         </View>
         <View style={{alignSelf: 'stretch'}}>
@@ -92,7 +154,7 @@ const AddSession = ({navigation, lista, fetchSes}) => {
               />
             </View>
         </View>
-        <AbsButton color={'#ccc'} onPress={()=> navigation.goBack()}>
+        <AbsButton color={'#ccc'} onPress={()=>setM2Visib(true)}>
             <Entypo name="check" size={50} color="white" />
         </AbsButton>
         <AddListButton onPress={()=> setMVisib(true)} />
@@ -105,6 +167,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
     fetchSes: () => dispatch(fetchSes()),
+    saveSes: (ses) => dispatch(saveSes(ses)),
     deleteSes: (itemKey) => dispatch(deleteSes(itemKey)),
 })
 

@@ -9,10 +9,10 @@ const exercises = [
     { name: 'Dips',     id: '2', },
     { name: 'Pull-Ups', id: '3', },
     { name: 'Rows',     id: '4', },
-    { name: 'HandStand',id: '5', },
-    { name: 'L-sit',    id: '6', },
-    { name: 'Plyo-Squats', id: '7', },
-    { name: 'Sprints',  id: '8', },
+    { name: 'Plyo-Squats', id: '5', },
+    { name: 'Sprints',  id: '6', },
+    { name: 'L-sit',    id: '7', },
+    { name: 'HandStand',id: '8', },
 ]
 
 export default ({
@@ -43,12 +43,13 @@ export default ({
 
     return (
     <View style={styles.center}>
-        <Text>Elige El ejercicio</Text>
-            <View style={{height: height*0.4,}}>
+        <Text>Elige el ejercicio</Text>
+            <View style={{height: height*0.1,}}>
               <FlatList
+                horizontal
                 style={styles.list}
                 data={exercises}
-                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
                 keyExtractor={x => x.id}
                 renderItem={({item}) =>
                     <View>
@@ -88,7 +89,6 @@ export default ({
 
 const styles = StyleSheet.create({
     center: {
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },

@@ -7,10 +7,9 @@ import { fetchSes, deleteSes } from '../reducers/sesiones'
 
 const {width, height} = Dimensions.get('screen');
 
-const AddSession = ({navigation, lista, fetchSes}) => {
+const AddSession = ({navigation, lista, fetchSes, deleteSes}) => {
 
     const data = navigation.getParam('item')
-    console.log(data)
 
    return <View style={styles.container}>
         <View style={styles.header}>
@@ -18,10 +17,18 @@ const AddSession = ({navigation, lista, fetchSes}) => {
                 <Entypo name="chevron-left" size={35} color="#555" />
             </TouchableOpacity>
             <Text >{data.name}</Text>
-            <TouchableOpacity  >
+        <TouchableOpacity  onPress={()=> {
+            deleteSes(data.key)
+            fetchSes()
+            navigation.navigate('Main')
+        }}>
                 <Entypo name="cup" size={30} color="#555" />
             </TouchableOpacity>
         </View>
+            <Text >Fecha {data.date}</Text>
+            <Text >Duracion {data.time}</Text>
+            <Text >Nivel {data.level}</Text>
+            <Text >Estado {data.feel}</Text>
         <View style={{alignSelf: 'stretch'}}>
             <View>
               <FlatList

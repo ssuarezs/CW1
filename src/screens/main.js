@@ -9,6 +9,10 @@ const {width, height} = Dimensions.get('screen');
 
 const Main = ({navigation, lista, fetchSes}) => {
 
+   React.useEffect(() => {
+    fetchSes()
+  }, [])
+
    return <View style={styles.container}>
        <View style={styles.header}>
             <Entypo name="chevron-left" size={35} color="white" />
@@ -22,7 +26,7 @@ const Main = ({navigation, lista, fetchSes}) => {
                 style={styles.list}
                 data={lista.data}
                 showsVerticalScrollIndicator={false}
-                keyExtractor={x => x.name}
+                keyExtractor={x => x.key}
                renderItem={({item}) =>
                     <ItemSes
                         item={item}
