@@ -125,8 +125,7 @@ const AddSession = ({navigation, lista, fetchSes, saveSes}) => {
             <Text style={styles.paragraph}>Agrega un ejercicio con {':  '}</Text>
             <Entypo name="add-to-list" size={30} color="#eee" />
         </View>
-        <View style={{alignSelf: 'stretch'}}>
-            <View>
+        <View style={{alignSelf: 'stretch', height: height*0.7}}>
               <FlatList
                 style={styles.list}
                 data={listaExer}
@@ -136,7 +135,6 @@ const AddSession = ({navigation, lista, fetchSes, saveSes}) => {
                   <ItemExe item={item} DelO del={() => deleteElement(item.id)}/>
                 }
               />
-            </View>
         </View>
         <AbsButton color={'#D5ECC2'} onPress={()=>setM2Visib(true)}>
             <Entypo name="check" size={50} color="#536162" />

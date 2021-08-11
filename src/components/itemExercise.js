@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Dimensions } from 'react-native';
 import DelButton from './delButton';
+import ExImage from './exeImage';
 
 const {width, height} = Dimensions.get('screen');
 
@@ -11,7 +12,7 @@ export default ({item, del, DelO}) => {
   return (
       <View key={item.id} style={styles.wrapper}>
         <View style={{width: 120}}>
-            <Text style={styles.title}>{item.name}</Text>
+            <ExImage title={item.name}/>
         </View>
         <View style={styles.count}>
             <Text style={styles.text}>{info}</Text>
@@ -27,9 +28,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderColor: '#eee',
+    backgroundColor: '#778294',
+    marginTop: 5,
+    borderRadius: 15,
     paddingHorizontal: 10,
-    borderBottomWidth: 2,
     width: width*0.95,
     height: 80,
   },

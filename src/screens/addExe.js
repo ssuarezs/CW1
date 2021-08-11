@@ -1,18 +1,18 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions, Text, TouchableOpacity, FlatList } from 'react-native';
-import { Input, ButtonA, ButtonB } from '../components'
+import { Input, ButtonA, ButtonB, ExImage } from '../components'
 
 import styles from './styles'
 const {width, height} = Dimensions.get('screen');
 
 const exercises = [
-    { name: 'Push-Ups', id: '1', },
+    { name: 'Push_Ups', id: '1', },
     { name: 'Dips',     id: '2', },
-    { name: 'Pull-Ups', id: '3', },
+    { name: 'Pull_Ups', id: '3', },
     { name: 'Rows',     id: '4', },
-    { name: 'Plyo-Squats', id: '5', },
+    { name: 'Squats', id: '5', },
     { name: 'Sprints',  id: '6', },
-    { name: 'L-sit',    id: '7', },
+    { name: 'Core',    id: '7', },
     { name: 'HandStand',id: '8', },
 ]
 
@@ -46,7 +46,7 @@ export default ({
     <View style={styles.center}>
         <Text/>
         <Text style={styles.subtitle}>ELIGE EL EJERCICIO</Text>
-            <View style={{height: 80, marginVertical: 20}}>
+            <View style={{height: 70, marginVertical: 20, borderRadius: 10, backgroundColor: '#AAA'}}>
               <FlatList
                 horizontal
                 style={styles.list}
@@ -56,9 +56,9 @@ export default ({
                 renderItem={({item}) =>
                     <View>
                     { item.id === exerId ?
-                        <ButtonB title={item.name} fixed/>
+                        <ExImage title={item.name} fixed/>
                     :
-                        <ButtonB title={item.name} onPress={()=>handleName({item})}/>
+                        <ExImage title={item.name} onPress={()=>handleName({item})}/>
                     }
                     </View>
                 }

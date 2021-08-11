@@ -51,8 +51,7 @@ const AddSession = ({navigation, lista, fetchSes, deleteSes}) => {
                 <Grade title={data.feel}/>
             </View>
         </View>
-        <View style={{alignSelf: 'stretch'}}>
-            <View>
+        <View style={{alignSelf: 'stretch', height: height*0.55}}>
               <FlatList
                 style={styles.list}
                 data={data.exerc}
@@ -62,7 +61,6 @@ const AddSession = ({navigation, lista, fetchSes, deleteSes}) => {
                     <ItemExe item={item} DelO={false} />
                 }
               />
-            </View>
         </View>
     </View>
 }

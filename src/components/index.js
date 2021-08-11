@@ -3,6 +3,7 @@ export { default as AddListButton } from './addToList';
 export { default as ButtonA } from './buttonA';
 export { default as ButtonB } from './buttonB';
 export { default as DelButton } from './delButton';
+export { default as ExImage } from './exeImage';
 export { default as Grade } from './grade';
 export { default as Input } from './input';
 export { default as ItemExe } from './itemExercise';
