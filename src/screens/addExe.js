@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Dimensions, Text, TouchableOpacity, FlatList } from 'react-native';
 import { Input, ButtonA, ButtonB } from '../components'
 
+import styles from './styles'
 const {width, height} = Dimensions.get('screen');
 
 const exercises = [
@@ -43,8 +44,9 @@ export default ({
 
     return (
     <View style={styles.center}>
-        <Text>Elige el ejercicio</Text>
-            <View style={{height: height*0.1,}}>
+        <Text/>
+        <Text style={styles.subtitle}>ELIGE EL EJERCICIO</Text>
+            <View style={{height: 80, marginVertical: 20}}>
               <FlatList
                 horizontal
                 style={styles.list}
@@ -74,30 +76,19 @@ export default ({
                 keyboardType="numeric"
             />
         </View>
-        <Text>Elige la modalidad del ejercicio</Text>
+        <Text/>
+        <Text style={styles.subtitle}>ELIGE LA MODALIDAD</Text>
         <View style={styles.row}>
             <ButtonB onPress={()=>Measure(true)} title="REPS" fixed={meas} />
             <ButtonB onPress={()=>Measure(false)} title="SEG" fixed={!meas} />
         </View>
+        <Text/>
         <View style={styles.row}>
-            <ButtonA onPress={close} title="CANCELAR" />
-            <ButtonA onPress={acept} title="ACEPTAR" />
+            <ButtonA onPress={close} title="CANCELAR" color="#FFD3B4" />
+            <ButtonA onPress={acept} title="ACEPTAR" color="#D5ECC2" />
         </View>
     </View>
     );
 }
 
-const styles = StyleSheet.create({
-    center: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    list: {
-        alignSelf: 'stretch',
-        margin: 10,
-    },
-    row: {
-        flexDirection: 'row',
-    }
-});
 

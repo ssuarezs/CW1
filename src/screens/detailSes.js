@@ -1,21 +1,22 @@
 import React from 'react';
 import { StyleSheet, View, Dimensions, Text, TouchableOpacity, FlatList } from 'react-native';
-import { Input, ButtonA, ButtonB } from '../components'
+import { Input, ButtonA, ButtonB, Grade } from '../components'
 
+import styles from './styles'
 const {width, height} = Dimensions.get('screen');
 
 
 const level = [
-    { name: 'begginer', id: '1', },
-    { name: 'medium',     id: '2', },
-    { name: 'advanced', id: '3', },
+    { name: 'inicial', id: '1', },
+    { name: 'medio',     id: '2', },
+    { name: 'avanzado', id: '3', },
 ]
 const feels = [
-    { name: 'excellent', id: '1', },
-    { name: 'good',     id: '2', },
+    { name: 'excelente', id: '1', },
+    { name: 'bueno',     id: '2', },
     { name: 'regular', id: '3', },
-    { name: 'bad',     id: '4', },
-    { name: 'dead',id: '5', },
+    { name: 'malo',     id: '4', },
+    { name: 'muerto',id: '5', },
 ]
 
 export default ({
@@ -42,15 +43,18 @@ export default ({
     return (
     <View style={styles.center}>
         <Text> </Text>
-        <Text>Nombre de la Sesion </Text>
-            <Input onChangeText={hSesN}/>
+            <Input
+                title="Nombre de la Sesion "
+                onChangeText={hSesN}
+            />
             <Input
                 title="Duracion (minutos)"
                 onChangeText={hTime}
                 keyboardType="numeric"
             />
-        <Text>Nivel </Text>
-            <View style={{height: height*0.1,}}>
+        <Text/>
+        <Text style={styles.subtitle}>¿ Cual fue el nivel de Dificultad ?</Text>
+            <View style={{height: 60, marginVertical: 20}}>
               <FlatList
                 horizontal
                 style={styles.list}
@@ -60,16 +64,16 @@ export default ({
                 renderItem={({item}) =>
                     <View>
                     { item.id === levelId ?
-                        <ButtonB title={item.name} fixed/>
+                        <Grade title={item.name} fixed/>
                     :
-                        <ButtonB title={item.name} onPress={()=>handleLevel({item})}/>
+                        <Grade title={item.name} onPress={()=>handleLevel({item})}/>
                     }
                     </View>
                 }
               />
             </View>
-        <Text>Estado </Text>
-            <View style={{height: height*0.1,}}>
+        <Text style={styles.subtitle}>¿ Como te sentiste durante la sesion ?</Text>
+            <View style={{height: 60, marginVertical: 20}}>
               <FlatList
                 horizontal
                 style={styles.list}
@@ -79,34 +83,20 @@ export default ({
                 renderItem={({item}) =>
                     <View>
                     { item.id === feelId ?
-                        <ButtonB title={item.name} fixed/>
+                        <Grade title={item.name} fixed/>
                     :
-                        <ButtonB title={item.name} onPress={()=>handleFeel({item})}/>
+                        <Grade title={item.name} onPress={()=>handleFeel({item})}/>
                     }
                     </View>
                 }
               />
             </View>
+        <Text/>
         <View style={styles.row}>
-            <ButtonA onPress={close} title="CANCELAR" />
-            <ButtonA onPress={acept} title="ACEPTAR" />
+            <ButtonA onPress={close} title="CANCELAR" color="#FFD3B4" />
+            <ButtonA onPress={acept} title="ACEPTAR" color="#D5ECC2" />
         </View>
-        <Text> </Text>
     </View>
     );
 }
-
-const styles = StyleSheet.create({
-    center: {
-        alignItems: 'center',
-        justifyContent: 'space-between',
-    },
-    list: {
-        alignSelf: 'stretch',
-        margin: 10,
-    },
-    row: {
-        flexDirection: 'row',
-    }
-});
 

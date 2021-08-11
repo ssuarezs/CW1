@@ -1,11 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, Dimensions, TouchableOpacity, FlatList } from 'react-native';
-import { AbsButton, ItemSes } from '../components'
 import { connect } from 'react-redux'
-import { Entypo } from '@expo/vector-icons';
 import { fetchSes, deleteSes } from '../reducers/sesiones'
 
-const {width, height} = Dimensions.get('screen');
+import { AbsButton, ItemSes } from '../components'
+import { Entypo } from '@expo/vector-icons';
+import styles from './styles'
 
 const Main = ({navigation, lista, fetchSes}) => {
 
@@ -15,9 +15,9 @@ const Main = ({navigation, lista, fetchSes}) => {
 
    return <View style={styles.container}>
        <View style={styles.header}>
-            <Entypo name="chevron-left" size={35} color="white" />
-            <Text >PRINCIPAL</Text>
-            <Entypo name="chevron-left" size={35} color="white" />
+            <Entypo name="chevron-left" size={35} color="#393E46" />
+            <Text style={styles.headerText}>CALISTHENICS WAY</Text>
+            <Entypo name="chevron-left" size={35} color="#393E46" />
        </View>
        <View style={{alignSelf: 'stretch'}}>
        {lista.data ?
@@ -41,8 +41,8 @@ const Main = ({navigation, lista, fetchSes}) => {
         </Text>
         }
        </View>
-        <AbsButton color={'#ccc'} onPress={()=> navigation.navigate('AddSe')}>
-            <Entypo name="plus" size={50} color="white" />
+        <AbsButton color={'#FFD3B4'} onPress={()=> navigation.navigate('AddSe')}>
+            <Entypo name="plus" size={50} color="#536162" />
         </AbsButton>
     </View>
 }
@@ -58,24 +58,3 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        backgroundColor: 'white',
-        paddingTop: height/15,
-    },
-    list: {
-        alignSelf: 'stretch',
-        margin: 10,
-    },
-    header: {
-        width: width,
-        height: width*0.14,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        paddingHorizontal: 15,
-    },
-});

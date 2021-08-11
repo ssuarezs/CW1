@@ -8,11 +8,11 @@ export default ({onPress, title, fixed}) => {
       <>
       {fixed ?
       <TouchableOpacity style={{...styles.wrapper, backgroundColor: '#ccc'}} onPress={onPress}>
-        <Text>{title}</Text>
+        <Text style={{...styles.text, color: '#222831'}}>{title}</Text>
       </TouchableOpacity>
       :
       <TouchableOpacity style={styles.wrapper} onPress={onPress}>
-        <Text>{title}</Text>
+        <Text style={styles.text}>{title}</Text>
       </TouchableOpacity>
       }
       </>
@@ -23,10 +23,16 @@ const styles = StyleSheet.create({
   wrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#eee',
+    backgroundColor: '#222831',
     borderRadius: 20,
     margin: 10,
     padding: 10,
     minWidth: 80,
   },
+    text: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: '#EEEEEE',
+    },
 })

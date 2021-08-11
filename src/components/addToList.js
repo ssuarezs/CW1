@@ -7,7 +7,7 @@ const {width, height} = Dimensions.get('screen');
 export default ({onPress}) => {
   return (
       <TouchableOpacity style={styles.wrapper} onPress={onPress}>
-        <Entypo name="add-to-list" size={30} color="white" />
+        <Entypo name="add-to-list" size={35} color="#536162" />
       </TouchableOpacity>
   )
 }
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ccc',
+    backgroundColor: '#98DDCA',
     borderRadius: 35,
     height: 70,
     width: 70,
